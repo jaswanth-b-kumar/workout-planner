@@ -51,7 +51,7 @@ function FormComponent() {
                     className="mb-3"
                 >
                     <Form.Select aria-label="workoutSelector">
-                        <option>{inputs.selectedMuscle ? 'Select workout' : 'Please select a target muscle' }</option>
+                        <option>{inputs.selectedMuscle ? 'Select workout' : 'Please select a target muscle'}</option>
                         {inputs.workouts && inputs.workouts.exercises.map((workout, index) => {
                             return <option key={index} value={workout.name}>{workout.name}</option>
                         })}
@@ -65,7 +65,7 @@ function FormComponent() {
                     />
                     <label htmlFor="floatingInputCustom">Total Sets</label>
                 </Form.Floating>
-                
+
                 <Form.Floating className="mb-3">
                     <Form.Control
                         id="formRepetitions"
@@ -74,7 +74,9 @@ function FormComponent() {
                     />
                     <label htmlFor="floatingInputCustom">Total Repetitions</label>
                 </Form.Floating>
-
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
             </Form>
 
         </div>
