@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { addWorkout } from '../Redux/workoutSlice';
 
 function FormComponent() {
     let [inputs, setInputs] = useState({
@@ -12,6 +14,8 @@ function FormComponent() {
         workoutSets: '',
         workoutRepetitions: ''
     })
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,6 +53,7 @@ function FormComponent() {
         setFormValues((prev) => ({ ...prev, [event.target.id]: event.target.value }));
     }
     const handleSubmit = (e) => {
+        dispatch({ type: addWorkout, payload: formValues });
         e.preventDefault();
         return;
     }
@@ -61,7 +66,7 @@ function FormComponent() {
                     className="mb-3"
                 >
                     <Form.Select aria-label="muscleSelector" id='muscle' value={formValues.muscle} onChange={handleFormChange}>
-                        <option>Select muscle</option>
+                        <option value=''>Select muscle</option>
                         {inputs.muscles && inputs.muscles.map((muscle, index) => {
                             return <option key={index} value={muscle}>{muscle}</option>
                         })}
@@ -72,8 +77,8 @@ function FormComponent() {
                     label="Select your workout"
                     className="mb-3"
                 >
-                    <Form.Select aria-label="workoutSelector" id='workout' value={formValues.workout} onChange={handleFormChange}>
-                        <option>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
+                    <Form.Select aria-label="workoutSelector" id='workout' value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
+                        <option value=''>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
                         {inputs.workouts?.exercises?.length > 0 && inputs.workouts.exercises.map((workout, index) => {
                             return <option key={index} value={workout.name}>{workout.name}</option>
                         })}
