@@ -53,7 +53,10 @@ function FormComponent() {
         setFormValues((prev) => ({ ...prev, [event.target.id]: event.target.value }));
     }
     const handleSubmit = (e) => {
-        dispatch({ type: addWorkout, payload: formValues });
+        const uid = function(){
+            return Date.now().toString(36) + Math.random().toString(3);
+        }
+        dispatch({ type: addWorkout, payload: {...formValues, id: uid()} });
         e.preventDefault();
         return;
     }
