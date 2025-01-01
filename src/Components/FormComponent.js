@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FloatingLabel, Form } from 'react-bootstrap';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
 
 function FormComponent() {
     let [inputs, setInputs] = useState({});
