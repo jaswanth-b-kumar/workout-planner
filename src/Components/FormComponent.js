@@ -2,7 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 
 function FormComponent() {
-    let [inputs, setInputs] = useState({});
+    let [inputs, setInputs] = useState({
+        muscles: [],
+        workouts: []
+    });
+    let [formValues, setFormValues] = useState({
+        muscle: '',
+        workout: '',
+        workoutSets: '',
+        workoutRepetitions: ''
+    })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -18,27 +27,40 @@ function FormComponent() {
         fetchData();
     }, [])
 
-    const getMuscleWorkouts = async (event) => {
-        try {
-            const response = await fetch(`https://api.algobook.info/v1/gym/categories/${event.target.value}`);
-            const result = await response.json();
-            setInputs({ ...inputs, workouts: result ?? [], selectedMuscle: event.target.value });
-        } catch (error) {
-            console.error(error);
+    useEffect(() => {
+        const fetchWorkouts = async () => {
+            try {
+                const response = await fetch(`https://api.algobook.info/v1/gym/categories/${formValues.muscle}`);
+                const result = await response.json();
+                setInputs((prev) => ({ ...prev, workouts: result ?? [] }));
+            } catch (error) {
+                console.error(error);
+            }
         }
+        if(formValues.muscle) {
+            fetchWorkouts();
+        }
+        else {
+            setInputs((prev) => ({ ...prev, workouts: [] }));
+        }
+    }, [formValues.muscle])
+
+    const handleFormChange = (event) => {
+        setFormValues((prev) => ({ ...prev, [event.target.id]: event.target.value }));
     }
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         return;
     }
     return (
         <div>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <FloatingLabel
                     controlId="formMuscleSelect"
                     label="Select your target muscle"
                     className="mb-3"
                 >
-                    <Form.Select aria-label="muscleSelector" onChange={getMuscleWorkouts}>
+                    <Form.Select aria-label="muscleSelector" id='muscle' value={formValues.muscle} onChange={handleFormChange}>
                         <option>Select muscle</option>
                         {inputs.muscles && inputs.muscles.map((muscle, index) => {
                             return <option key={index} value={muscle}>{muscle}</option>
@@ -50,32 +72,36 @@ function FormComponent() {
                     label="Select your workout"
                     className="mb-3"
                 >
-                    <Form.Select aria-label="workoutSelector">
-                        <option>{inputs.selectedMuscle ? 'Select workout' : 'Please select a target muscle'}</option>
-                        {inputs.workouts && inputs.workouts.exercises.map((workout, index) => {
+                    <Form.Select aria-label="workoutSelector" id='workout' value={formValues.workout} onChange={handleFormChange}>
+                        <option>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
+                        {inputs.workouts?.exercises?.length > 0 && inputs.workouts.exercises.map((workout, index) => {
                             return <option key={index} value={workout.name}>{workout.name}</option>
                         })}
                     </Form.Select>
                 </FloatingLabel>
                 <Form.Floating className="mb-3">
                     <Form.Control
-                        id="formSets"
+                        id="workoutSets"
                         type="number"
                         placeholder="Enter number of sets"
+                        value={formValues.sets}
+                        onChange={handleFormChange}
                     />
                     <label htmlFor="floatingInputCustom">Total Sets</label>
                 </Form.Floating>
 
                 <Form.Floating className="mb-3">
                     <Form.Control
-                        id="formRepetitions"
+                        id="workoutRepetitions"
                         type="number"
                         placeholder="Enter number of Repetitions"
+                        value={formValues.repetitions}
+                        onChange={handleFormChange}
                     />
                     <label htmlFor="floatingInputCustom">Total Repetitions</label>
                 </Form.Floating>
                 <Button variant="primary" type="submit">
-                    Submit
+                    Add Workout
                 </Button>
             </Form>
 
