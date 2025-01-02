@@ -50,7 +50,10 @@ function FormComponent() {
     }, [formValues.muscle])
 
     const handleFormChange = (event) => {
-        setFormValues((prev) => ({ ...prev, [event.target.id]: event.target.value }));
+        setFormValues((prev) => ({ ...prev, [event.target.id]: event.target.value}));
+        if(event.target.workoutLink) {
+            setFormValues((prev) => ({ ...prev, workoutLink: event.target.workoutLink}));
+        }
     }
     const handleSubmit = (e) => {
         const uid = function(){
@@ -80,10 +83,10 @@ function FormComponent() {
                     label="Select your workout"
                     className="mb-3"
                 >
-                    <Form.Select aria-label="workoutSelector" id='workout' value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
+                    <Form.Select aria-label="workoutSelector" id='workout' workoutLink={formValues.muscle ? formValues.workoutLink : ''} value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
                         <option value=''>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
                         {inputs.workouts?.exercises?.length > 0 && inputs.workouts.exercises.map((workout, index) => {
-                            return <option key={index} value={workout.name}>{workout.name}</option>
+                            return <option key={index} workoutLink={workout.infoLink} value={workout.name}>{workout.name}</option>
                         })}
                     </Form.Select>
                 </FloatingLabel>
