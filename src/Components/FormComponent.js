@@ -51,15 +51,13 @@ function FormComponent() {
 
     const handleFormChange = (event) => {
         setFormValues((prev) => ({ ...prev, [event.target.id]: event.target.value}));
-        if(event.target.workoutLink) {
-            setFormValues((prev) => ({ ...prev, workoutLink: event.target.workoutLink}));
-        }
     }
     const handleSubmit = (e) => {
         const uid = function(){
             return Date.now().toString(36) + Math.random().toString(3);
         }
-        dispatch({ type: addWorkout, payload: {...formValues, id: uid()} });
+        const workoutLink = inputs.workouts.exercises.find((workout) => workout.name === formValues.workout)?.infoLink;
+        dispatch({ type: addWorkout, payload: {...formValues, id: uid(), workoutLink : workoutLink}});
         e.preventDefault();
         return;
     }
@@ -86,7 +84,7 @@ function FormComponent() {
                     <Form.Select aria-label="workoutSelector" id='workout' workoutLink={formValues.muscle ? formValues.workoutLink : ''} value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
                         <option value=''>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
                         {inputs.workouts?.exercises?.length > 0 && inputs.workouts.exercises.map((workout, index) => {
-                            return <option key={index} workoutLink={workout.infoLink} value={workout.name}>{workout.name}</option>
+                            return <option key={index} value={workout.name}>{workout.name}</option>
                         })}
                     </Form.Select>
                 </FloatingLabel>
