@@ -12,7 +12,7 @@ function App() {
           <Col sm={12} lg={3} className='p-3'>
             <FormComponent />
           </Col>
-          <Col sm={12} md={9} className='p-3'>
+          <Col sm={12} md={9} className='p-3 h-100'>
             <TableComponent />
           </Col>
         </Row>

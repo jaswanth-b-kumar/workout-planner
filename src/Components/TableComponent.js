@@ -11,36 +11,39 @@ function TableComponent() {
         dispatch({ type: deleteWorkout, payload: id });
     };
     return (
-        <div className='overflow-auto h-100 display-block'>
-            <Table striped bordered hover className='mb-0'>
-                <thead className='position-sticky'>
-                    <tr>
-                        <th>#</th>
-                        <th>Muscle</th>
-                        <th>Workout</th>
-                        <th>Sets</th>
-                        <th>Repetitions</th>
-                        <th>Details</th>
-                        <th>Delete Workout
-                            {/* Todo - Modify */}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {workouts.length > 0 && workouts.map((workout, index) => (
-                        <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{workout.muscle}</td>
-                            <td>{workout.workout}</td>
-                            <td>{workout.workoutSets}</td>
-                            <td>{workout.workoutRepetitions}</td>
-                            <td><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo</a></td>
-                            <td onClick={deleteWorkouts(workout.id)}><Button variant="outline-danger" size="sm" ><Trash3 /></Button></td>
+        <>
+            <div className='h-100 overflow-auto rounded-3 table-container'>
+                <Table striped bordered hover className='mb-0 position-relative'>
+                    <thead className='position-sticky top-0'>
+                        <tr>
+                            <th>#</th>
+                            <th>Muscle</th>
+                            <th>Workout</th>
+                            <th>Sets</th>
+                            <th>Repetitions</th>
+                            <th>Details</th>
+                            <th>Delete Workout
+                                {/* Todo - Modify */}
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {workouts.length > 0 && workouts.map((workout, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{workout.muscle}</td>
+                                <td>{workout.workout}</td>
+                                <td>{workout.workoutSets}</td>
+                                <td>{workout.workoutRepetitions}</td>
+                                <td><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo</a></td>
+                                <td onClick={deleteWorkouts(workout.id)}><Button variant="outline-danger" size="sm" ><Trash3 /></Button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+            <Button variant="success">Success</Button>
+        </>
     )
 }
 
