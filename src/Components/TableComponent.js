@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { Trash3 } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteWorkout } from '../Redux/workoutSlice';
+import jsPDF from 'jspdf';
+
 
 function TableComponent() {
     const workouts = useSelector((state) => state.workouts.workouts);
@@ -10,10 +12,23 @@ function TableComponent() {
     const deleteWorkouts = (id) => () => {
         dispatch({ type: deleteWorkout, payload: id });
     };
+    const downloadRef = useRef(null);
+    const handleGeneratePdf = () => {
+        const doc = new jsPDF('l', 'pt','a4',true);
+
+
+        doc.html(downloadRef.current, {
+
+            async callback(doc) {
+                await doc.save('document');
+            },
+        });
+    };
+
     return (
         <>
-            <div className='h-100 overflow-auto rounded-3 table-container'>
-                <Table striped bordered hover className='mb-0 position-relative'>
+            <div className='h-100 overflow-auto table-container w-100'>
+                <Table bordered hover className='mb-0 position-relative h-100' ref={downloadRef}>
                     <thead className='position-sticky top-0'>
                         <tr>
                             <th>#</th>
@@ -42,7 +57,7 @@ function TableComponent() {
                     </tbody>
                 </Table>
             </div>
-            <Button variant="success">Success</Button>
+            <Button variant="success" className='m-2'onClick={handleGeneratePdf} >Download Plan</Button>
         </>
     )
 }

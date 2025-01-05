@@ -1,5 +1,5 @@
-import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
 import FormComponent from './Components/FormComponent';
 import TableComponent from './Components/TableComponent';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -12,7 +12,7 @@ function App() {
           <Col sm={12} lg={3} className='p-3'>
             <FormComponent />
           </Col>
-          <Col sm={12} md={9} className='p-3 h-100'>
+          <Col sm={12} md={9} className='p-3 h-100 d-flex flex-column align-items-center'>
             <TableComponent />
           </Col>
         </Row>
