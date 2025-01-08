@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/workout-planner/static/css/main.ba019411.css",
-    "main.js": "/workout-planner/static/js/main.89ee43f9.js",
+    "main.css": "/workout-planner/static/css/main.95d5abd0.css",
+    "main.js": "/workout-planner/static/js/main.0a1219da.js",
     "static/js/239.963935bc.chunk.js": "/workout-planner/static/js/239.963935bc.chunk.js",
     "static/js/213.c924c0ca.chunk.js": "/workout-planner/static/js/213.c924c0ca.chunk.js",
     "static/js/455.ee9fe164.chunk.js": "/workout-planner/static/js/455.ee9fe164.chunk.js",
     "static/js/453.751dfc58.chunk.js": "/workout-planner/static/js/453.751dfc58.chunk.js",
     "static/media/gym-background.png": "/workout-planner/static/media/gym-background.ef3e78035f36ea8c4ea5.png",
     "index.html": "/workout-planner/index.html",
-    "main.ba019411.css.map": "/workout-planner/static/css/main.ba019411.css.map",
-    "main.89ee43f9.js.map": "/workout-planner/static/js/main.89ee43f9.js.map",
+    "main.95d5abd0.css.map": "/workout-planner/static/css/main.95d5abd0.css.map",
+    "main.0a1219da.js.map": "/workout-planner/static/js/main.0a1219da.js.map",
     "239.963935bc.chunk.js.map": "/workout-planner/static/js/239.963935bc.chunk.js.map",
     "213.c924c0ca.chunk.js.map": "/workout-planner/static/js/213.c924c0ca.chunk.js.map",
     "455.ee9fe164.chunk.js.map": "/workout-planner/static/js/455.ee9fe164.chunk.js.map",
     "453.751dfc58.chunk.js.map": "/workout-planner/static/js/453.751dfc58.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ba019411.css",
-    "static/js/main.89ee43f9.js"
+    "static/css/main.95d5abd0.css",
+    "static/js/main.0a1219da.js"
   ]
 }
