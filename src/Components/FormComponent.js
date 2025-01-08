@@ -69,7 +69,7 @@ function FormComponent() {
                     label="Select your target muscle"
                     className="mb-3"
                 >
-                    <Form.Select aria-label="muscleSelector" id='muscle' value={formValues.muscle} onChange={handleFormChange}>
+                    <Form.Select required aria-label="muscleSelector" id='muscle' value={formValues.muscle} onChange={handleFormChange}>
                         <option value=''>Select muscle</option>
                         {inputs.muscles && inputs.muscles.map((muscle, index) => {
                             return <option key={index} value={muscle}>{muscle}</option>
@@ -81,7 +81,7 @@ function FormComponent() {
                     label="Select your workout"
                     className="mb-3"
                 >
-                    <Form.Select aria-label="workoutSelector" id='workout' workoutLink={formValues.muscle ? formValues.workoutLink : ''} value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
+                    <Form.Select required aria-label="workoutSelector" id='workout' workoutLink={formValues.muscle ? formValues.workoutLink : ''} value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
                         <option value=''>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
                         {inputs.workouts?.exercises?.length > 0 && inputs.workouts.exercises.map((workout, index) => {
                             return <option key={index} value={workout.name}>{workout.name}</option>
@@ -90,6 +90,7 @@ function FormComponent() {
                 </FloatingLabel>
                 <Form.Floating className="mb-3">
                     <Form.Control
+                        required
                         id="workoutSets"
                         type="number"
                         placeholder="Enter number of sets"
@@ -101,6 +102,7 @@ function FormComponent() {
 
                 <Form.Floating className="mb-3">
                     <Form.Control
+                        required
                         id="workoutRepetitions"
                         type="number"
                         placeholder="Enter number of Repetitions"
