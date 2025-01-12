@@ -18,6 +18,13 @@
     }
 
     .table-container {
+        border: 1px solid #dee2e6;
+
+        th{
+            background-color: #ffffff;
+            color: #000;
+        }
+
         tbody {
             background-color: #36322e8a;
         }
