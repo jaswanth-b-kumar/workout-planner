@@ -50,8 +50,8 @@ function TableComponent() {
                                 <td>{workout.workout}</td>
                                 <td>{workout.workoutSets}</td>
                                 <td>{workout.workoutRepetitions}</td>
-                                <td><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo</a></td>
-                                <td onClick={deleteWorkouts(workout.id)}><Button variant="outline-danger" size="sm" ><Trash3 /></Button></td>
+                                <td className="text-center"><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo</a></td>
+                                <td className="text-center" onClick={deleteWorkouts(workout.id)}><Button variant="outline-danger" size="sm" ><Trash3 /></Button></td>
                             </tr>
                         ))}
                     </tbody>
