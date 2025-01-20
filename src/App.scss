@@ -25,6 +25,19 @@
             color: #000;
         }
 
+        td{
+            vertical-align: center;
+            
+            a{
+                text-decoration: none;
+                color: inherit;
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+                justify-content: center;
+            }
+        }
+
         tbody {
             background-color: #36322e8a;
         }

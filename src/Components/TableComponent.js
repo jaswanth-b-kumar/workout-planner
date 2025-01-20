@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Button, Table } from 'react-bootstrap';
-import { PencilSquare, Trash3 } from 'react-bootstrap-icons';
+import { BoxArrowUpRight, PencilSquare, Trash3 } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteWorkout } from '../Redux/workoutSlice';
 import jsPDF from 'jspdf';
@@ -50,7 +50,7 @@ function TableComponent() {
                                 <td>{workout.workout}</td>
                                 <td>{workout.workoutSets}</td>
                                 <td>{workout.workoutRepetitions}</td>
-                                <td className="text-center"><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo</a></td>
+                                <td className="text-center"><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
                                 <td className="text-center"><Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
                             </tr>
                         ))}
