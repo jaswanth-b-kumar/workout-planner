@@ -6,7 +6,7 @@ import { deleteWorkout } from '../Redux/workoutSlice';
 import jsPDF from 'jspdf';
 
 
-function TableComponent() {
+function TableComponent(props) {
     const workouts = useSelector((state) => state.workouts.workouts);
     const dispatch = useDispatch();
     const deleteWorkouts = (id) => () => {
@@ -51,7 +51,7 @@ function TableComponent() {
                                 <td>{workout.workoutSets}</td>
                                 <td>{workout.workoutRepetitions}</td>
                                 <td className="text-center"><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
-                                <td className="text-center"><Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
+                                <td className="text-center"><Button onClick={props.editModal(workout.id)} variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
                             </tr>
                         ))}
                     </tbody>
