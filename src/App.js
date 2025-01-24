@@ -17,7 +17,7 @@ function App() {
           <Col sm={12} lg={3} className='p-3 form-container'>
             <FormComponent />
           </Col>
-          <Col sm={12} md={9} className='p-0 h-100 d-flex flex-column align-items-center'>
+          <Col sm={12} md={9} className='p-0 h-100 d-flex flex-column align-items-center table-background'>
             <TableComponent editModal={handleShow}/>
           </Col>
         </Row>
