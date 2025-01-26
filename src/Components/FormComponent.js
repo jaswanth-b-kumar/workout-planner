@@ -114,7 +114,7 @@ function FormComponent() {
                     />
                     <label htmlFor="floatingInputCustom">Total Repetitions</label>
                 </Form.Floating>
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between custom-btns'>
                     <Button variant="primary" type="submit" className="custom-btn">
                         Add Workout
                     </Button>
