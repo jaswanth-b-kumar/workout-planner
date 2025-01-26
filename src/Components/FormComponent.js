@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { addWorkout } from '../Redux/workoutSlice';
-
+import plannerIcon from '../Assets/images/plannerIcon.svg'
+ 
 function FormComponent() {
     let [inputs, setInputs] = useState({
         muscles: [],
@@ -29,6 +30,7 @@ function FormComponent() {
         }
 
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -63,6 +65,7 @@ function FormComponent() {
     }
     return (
         <div>
+            <img src={plannerIcon} className='workoutIcon' alt='workout-planner logo'/>
             <Form onSubmit={handleSubmit}>
                 <FloatingLabel
                     controlId="formMuscleSelect"
@@ -111,9 +114,14 @@ function FormComponent() {
                     />
                     <label htmlFor="floatingInputCustom">Total Repetitions</label>
                 </Form.Floating>
-                <Button variant="primary" type="submit">
-                    Add Workout
-                </Button>
+                <div className='d-flex justify-content-between'>
+                    <Button variant="primary" type="submit" className="custom-btn">
+                        Add Workout
+                    </Button>
+                    <Button className="custom-btn customize-button">
+                        Customize
+                    </Button>
+                </div>
             </Form>
 
         </div>

@@ -10,23 +10,55 @@
 
         .form-container {
             background: rgb(6, 6, 6);
+            
+            .custom-btns {
+                gap: 0.5em;
+
+                .custom-btn {
+                    background: #e65f2b;
+                    border-radius: 2em;
+                    font-size: 1em;
+                    color: #fff;
+                    padding: 0.5em 0.75em;
+                    border: none;
+                }
+
+                .customize-button{
+                    background: #fff;
+                    color: #e65f2b;
+                    font-weight: 500;
+                }
+            }
+
+            .workoutIcon {
+                width: 45%;
+                margin: 1em auto 1.5em;
+                display: block;
+                box-shadow: 0px 34.01px 8em 0px rgb(235 223 215);
+                border-radius: 0.4em;
+            }
         }
 
         .table-background {
 
-            background: #ebebeb;
+            background: #F2EAE4;
 
             .table-container {
-                border: 1px solid #dee2e6;
                 background: rgb(235, 223, 215);
 
-                th {
-                    background-color: #FFFFFF56;
-                    color: #000;
+                thead{
+                    top: -1px !important;
+
+                    th {
+                        text-align: center;
+                        background-color:#F2EAE4;
+                        color: #000;
+                    }
                 }
 
                 td {
-                    background-color: #FFFFFF56;
+                    text-align: center;
+                    background-color: #F2EAE4;
                     vertical-align: center;
 
                     a {
@@ -54,7 +86,7 @@
             }
 
             .table-container::-webkit-scrollbar-thumb {
-                background-color: #06060693;
+                background-color: #e65f2b;
                 border-radius: 10px;
             }
 

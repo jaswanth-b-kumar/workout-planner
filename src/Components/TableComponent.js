@@ -29,7 +29,7 @@ function TableComponent() {
         <>
             <div className='h-100 overflow-auto table-container w-100'>
                 <Table bordered hover className='mb-0 position-relative h-100' ref={downloadRef}>
-                    <thead className='position-sticky top-0'>
+                    <thead className='position-sticky'>
                         <tr>
                             <th>#</th>
                             <th>Muscle</th>
@@ -50,8 +50,8 @@ function TableComponent() {
                                 <td>{workout.workout}</td>
                                 <td>{workout.workoutSets}</td>
                                 <td>{workout.workoutRepetitions}</td>
-                                <td className="text-center"><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
-                                <td className="text-center"><Button variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
+                                <td><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
+                                <td><Button variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
                             </tr>
                         ))}
                     </tbody>

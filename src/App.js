@@ -2,14 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import FormComponent from './Components/FormComponent';
 import TableComponent from './Components/TableComponent';
-import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
-import { useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 
 function App() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   return (
     <div className="App">
       <Container fluid="xxl" className='p-4 p-md-5 h-100'>
@@ -17,8 +12,8 @@ function App() {
           <Col sm={12} lg={3} className='p-3 form-container'>
             <FormComponent />
           </Col>
-          <Col sm={12} md={9} className='p-0 h-100 d-flex flex-column align-items-center table-background'>
-            <TableComponent editModal={handleShow}/>
+          <Col sm={12} lg={9} className='p-0 h-100 d-flex flex-column align-items-center table-background'>
+            <TableComponent />
           </Col>
         </Row>
       </Container>
