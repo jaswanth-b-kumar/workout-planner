@@ -10,7 +10,7 @@
 
         .form-container {
             background: rgb(6, 6, 6);
-            
+
             .custom-btns {
                 gap: 0.5em;
 
@@ -23,7 +23,7 @@
                     border: none;
                 }
 
-                .customize-button{
+                .customize-button {
                     background: #fff;
                     color: #e65f2b;
                     font-weight: 500;
@@ -46,33 +46,52 @@
             .table-container {
                 background: rgb(235, 223, 215);
 
-                thead{
+                thead {
                     top: -1px !important;
 
                     th {
                         text-align: center;
-                        background-color:#F2EAE4;
+                        background-color: #F2EAE4;
                         color: #000;
-                    }
-                }
-
-                td {
-                    text-align: center;
-                    background-color: #F2EAE4;
-                    vertical-align: center;
-
-                    a {
-                        text-decoration: none;
-                        color: inherit;
-                        display: flex;
-                        align-items: center;
-                        gap: 0.5em;
-                        justify-content: center;
                     }
                 }
 
                 tbody {
                     background-color: #36322e8a;
+
+                    tr {
+
+                        td {
+                            text-align: center;
+                            background-color: #F2EAE4;
+                            vertical-align: center;
+                            width: 14%;
+
+                            &:nth-child(1){
+                                width: 5%;
+                            }
+
+                            &:nth-child(3){
+                                width: 25%;
+                            }
+
+                            a {
+                                text-decoration: none;
+                                color: inherit;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5em;
+                                justify-content: center;
+                            }
+                        }
+                    }
+                }
+
+                .user-guide{
+                    width: 100%;
+                    color: rgb(6, 6, 6);
+
+
                 }
             }
 
