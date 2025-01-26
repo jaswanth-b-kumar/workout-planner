@@ -27,7 +27,7 @@ function TableComponent() {
 
     return (
         <>
-            <div className='h-100 overflow-auto table-container w-100'>
+            <div className={`table-container w-100 ${workouts.length > 0 ? 'h-100 overflow-auto' : ''}`}>
                 <Table bordered hover className='mb-0 position-relative w-100' ref={downloadRef}>
                     <thead className='position-sticky'>
                         <tr>
@@ -54,24 +54,28 @@ function TableComponent() {
                         ))}
                     </tbody>
                 </Table>
-                {
-                    workouts.length == 0 && <div className='user-guide'>
+            </div>
+            {
+                workouts.length === 0 && <div className='d-flex flex-column justify-content-center h-100 w-100'>
+                    <div className='user-guide'>
                         <h2 className='user-guide-header'>Welcome to Your Personalized Workout Planner!</h2>
                         <h5 className='user-guide-subheader'>Getting Started:</h5>
-                        <ul>
-                            <li>Step 1: Select your target muscle from the dropdown.</li>
-                            <li>Step 2: Choose a workout from the available options.</li>
-                            <li>Step 3: Customize the number of sets and repetitions.</li>
-                            <li>Step 4: Click "Add Workout" to add the exercise to your plan.</li>
-                            <li>Step 5: Repeat steps 1-4 to add more exercises to your plan.</li>
-                            <li>Step 6: Download your plan as a PDF.</li>
+                        <ul className='user-guide-list'>
+                            <li><b>Step 1:</b> Select your target muscle from the dropdown.</li>
+                            <li><b>Step 2:</b> Choose a workout from the available options.</li>
+                            <li><b>Step 3:</b> Customize the number of sets and repetitions.</li>
+                            <li><b>Step 4:</b> Click "Add Workout" to add the exercise to your plan.</li>
+                            <li><b>Step 5:</b> Repeat steps 1-4 to add more exercises to your plan.</li>
+                            <li><b>Step 6:</b> Download your plan as a PDF.</li>
                         </ul>
+                        <p className='user-guide-footer'><b>Can't find the perfect workout?</b><br/>
+                            No worries! Use the Customize option to manually enter your desired exercise, sets, and reps. Get creative and build a routine that's uniquely yours!</p>
+                        </div>
                     </div>
-                }
-            </div>
-            <Button variant="success" className='m-2' onClick={handleGeneratePdf} >Download Plan</Button>
-        </>
+            }
+                    <Button variant="success" className='m-2' onClick={handleGeneratePdf} >Download Plan</Button>
+                </>
     )
 }
 
-export default TableComponent
+            export default TableComponent
