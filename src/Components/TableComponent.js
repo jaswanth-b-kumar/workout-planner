@@ -31,11 +31,11 @@ function TableComponent() {
                 <Table bordered hover className='mb-0 position-relative w-100' ref={downloadRef}>
                     <thead className='position-sticky'>
                         <tr>
-                            <th>#</th>
+                            <th className='d-none d-lg-table-cell'>#</th>
                             <th>Muscle</th>
                             <th>Workout</th>
                             <th>Sets x Repetitions</th>
-                            <th>Details</th>
+                            <th className='d-none d-md-table-cell'>Details</th>
                             <th>Edit / Delete Workout
                                 {/* Todo - Modify */}
                             </th>
@@ -44,11 +44,11 @@ function TableComponent() {
                     <tbody>
                         {workouts.length > 0 && workouts.map((workout, index) => (
                             <tr key={index}>
-                                <td>{index + 1}</td>
+                                <td className='d-none d-lg-table-cell'>{index + 1}</td>
                                 <td>{workout.muscle}</td>
                                 <td>{workout.workout}</td>
                                 <td>{workout.workoutSets} x {workout.workoutRepetitions}</td>
-                                <td><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
+                                <td className='d-none d-md-table-cell'><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
                                 <td><Button variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
                             </tr>
                         ))}

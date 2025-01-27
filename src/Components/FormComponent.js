@@ -65,7 +65,7 @@ function FormComponent() {
     }
     return (
         <div>
-            <img src={plannerIcon} className='workoutIcon' alt='workout-planner logo'/>
+            <img src={plannerIcon} className='workoutIcon d-none d-sm-block' alt='workout-planner logo'/>
             <Form onSubmit={handleSubmit}>
                 <FloatingLabel
                     controlId="formMuscleSelect"
@@ -102,7 +102,6 @@ function FormComponent() {
                     />
                     <label htmlFor="floatingInputCustom">Total Sets</label>
                 </Form.Floating>
-
                 <Form.Floating className="mb-3">
                     <Form.Control
                         required
@@ -114,11 +113,11 @@ function FormComponent() {
                     />
                     <label htmlFor="floatingInputCustom">Total Repetitions</label>
                 </Form.Floating>
-                <div className='d-flex justify-content-between custom-btns'>
-                    <Button variant="primary" type="submit" className="custom-btn">
+                <div className='d-lg-flex justify-content-between custom-btns'>
+                    <Button variant="primary" type="submit" className="custom-btn w-100">
                         Add Workout
                     </Button>
-                    <Button className="custom-btn customize-button">
+                    <Button className="custom-btn customize-button ml-lg-1 w-100">
                         Customize
                     </Button>
                 </div>

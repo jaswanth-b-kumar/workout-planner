@@ -9,10 +9,10 @@ function App() {
     <div className="App">
       <Container fluid="xxl" className='p-4 p-md-5 h-100'>
         <Row className='align-items-stretch mx-xxl-5 h-100 homepage-container'>
-          <Col sm={12} lg={3} className='p-3 form-container'>
+          <Col sm={12} md={4} lg={3} className='p-3 form-container'>
             <FormComponent />
           </Col>
-          <Col sm={12} lg={9} className='p-0 h-100 d-flex flex-column align-items-center table-background'>
+          <Col sm={12} md={8} lg={9} className='p-0 h-100 d-flex flex-column align-items-center table-background'>
             <TableComponent />
           </Col>
         </Row>
