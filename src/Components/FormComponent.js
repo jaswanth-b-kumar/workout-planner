@@ -84,7 +84,7 @@ function FormComponent() {
                     label="Select your workout"
                     className="mb-3"
                 >
-                    <Form.Select required aria-label="workoutSelector" id='workout' workoutLink={formValues.muscle ? formValues.workoutLink : ''} value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
+                    <Form.Select required aria-label="workoutSelector" id='workout' value={formValues.muscle ? formValues.workout : ''} onChange={handleFormChange}>
                         <option value=''>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
                         {inputs.workouts?.exercises?.length > 0 && inputs.workouts.exercises.map((workout, index) => {
                             return <option key={index} value={workout.name}>{workout.name}</option>
