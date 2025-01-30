@@ -73,7 +73,7 @@ function FormComponent() {
                     className="mb-3"
                 >
                     <Form.Select required aria-label="muscleSelector" id='muscle' value={formValues.muscle} onChange={handleFormChange}>
-                        <option value=''>Select muscle</option>
+                        <option value=''>Select Muscle</option>
                         {inputs.muscles && inputs.muscles.map((muscle, index) => {
                             return <option key={index} value={muscle}>{muscle}</option>
                         })}
