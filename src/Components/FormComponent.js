@@ -75,7 +75,8 @@ function FormComponent() {
                     <Form.Select required aria-label="muscleSelector" id='muscle' value={formValues.muscle} onChange={handleFormChange}>
                         <option value=''>Select Muscle</option>
                         {inputs.muscles && inputs.muscles.map((muscle, index) => {
-                            return <option key={index} value={muscle}>{muscle}</option>
+                            const sentenceCaseMuscle = muscle.charAt(0).toUpperCase() + muscle.slice(1);
+                            return <option key={index} value={muscle}>{sentenceCaseMuscle}</option>
                         })}
                     </Form.Select>
                 </FloatingLabel>

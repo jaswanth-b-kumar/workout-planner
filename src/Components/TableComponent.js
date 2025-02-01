@@ -45,7 +45,9 @@ function TableComponent() {
                         {workouts.length > 0 && workouts.map((workout, index) => (
                             <tr key={index}>
                                 <td className='d-none d-lg-table-cell'>{index + 1}</td>
-                                <td>{workout.muscle}</td>
+                                <td>
+                                    {workout.muscle.charAt(0).toUpperCase() + workout.muscle.slice(1)}
+                                </td>
                                 <td>{workout.workout}</td>
                                 <td>{workout.workoutSets} x {workout.workoutRepetitions}</td>
                                 <td className='d-none d-md-table-cell'><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
@@ -68,14 +70,14 @@ function TableComponent() {
                             <li><b>Step 5:</b> Repeat steps 1-4 to add more exercises to your plan.</li>
                             <li><b>Step 6:</b> Download your plan as a PDF.</li>
                         </ul>
-                        <p className='user-guide-footer'><b>Can't find the perfect workout?</b><br/>
+                        <p className='user-guide-footer'><b>Can't find the perfect workout?</b><br />
                             No worries! Use the Customize option to manually enter your desired exercise, sets, and reps. Get creative and build a routine that's uniquely yours!</p>
-                        </div>
                     </div>
+                </div>
             }
-                    <Button variant="success" className='m-2' onClick={handleGeneratePdf} >Download Plan</Button>
-                </>
+            <Button variant="success" className='m-2' onClick={handleGeneratePdf} >Download Plan</Button>
+        </>
     )
 }
 
-            export default TableComponent
+export default TableComponent
