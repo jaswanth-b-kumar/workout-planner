@@ -49,7 +49,7 @@ function TableComponent() {
                                 <td>{workout.workout}</td>
                                 <td>{workout.workoutSets} x {workout.workoutRepetitions}</td>
                                 <td className='d-none d-md-table-cell'><a href={workout.workoutLink} target="_blank" rel="noreferrer">View Demo <BoxArrowUpRight /> </a></td>
-                                <td><Button variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
+                                <td><Button variant="secondary" size="sm" ><PencilSquare /></Button>&nbsp;&nbsp;<Button onClick={deleteWorkouts(workout.id)} variant="secondary" size="sm" ><Trash3 /></Button></td>
                             </tr>
                         ))}
                     </tbody>
