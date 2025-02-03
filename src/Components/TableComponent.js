@@ -3,7 +3,8 @@ import { Button, Table } from 'react-bootstrap';
 import { BoxArrowUpRight, PencilSquare, Trash3 } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteWorkout } from '../Redux/workoutSlice';
-import jsPDF from 'jspdf';
+import DownloadComponent from './DownloadComponent';
+import ReactPDF, { PDFDownloadLink } from '@react-pdf/renderer';
 
 
 function TableComponent() {
@@ -14,15 +15,16 @@ function TableComponent() {
     };
     const downloadRef = useRef(null);
     const handleGeneratePdf = () => {
-        const doc = new jsPDF('l', 'pt', 'a4', true);
+        // const doc = new jsPDF('l', 'pt', 'a4', true);
 
 
-        doc.html(downloadRef.current, {
+        // doc.html(downloadRef.current, {
 
-            async callback(doc) {
-                await doc.save('document');
-            },
-        });
+        //     async callback(doc) {
+        //         await doc.save('document');
+        //     },
+        // });
+        // ReactPDF.render(<DownloadComponent />, `${__dirname}/example.pdf`);
     };
 
     return (
@@ -75,7 +77,7 @@ function TableComponent() {
                     </div>
                 </div>
             }
-            <Button variant="success" className='m-2' onClick={handleGeneratePdf} >Download Plan</Button>
+            <PDFDownloadLink variant="success" className='m-2' document={<DownloadComponent />} fileName='workout' >Download Plan</PDFDownloadLink>
         </>
     )
 }
