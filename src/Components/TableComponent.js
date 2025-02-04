@@ -13,24 +13,11 @@ function TableComponent() {
     const deleteWorkouts = (id) => () => {
         dispatch({ type: deleteWorkout, payload: id });
     };
-    const downloadRef = useRef(null);
-    const handleGeneratePdf = () => {
-        // const doc = new jsPDF('l', 'pt', 'a4', true);
-
-
-        // doc.html(downloadRef.current, {
-
-        //     async callback(doc) {
-        //         await doc.save('document');
-        //     },
-        // });
-        // ReactPDF.render(<DownloadComponent />, `${__dirname}/example.pdf`);
-    };
 
     return (
         <>
             <div className={`table-container w-100 ${workouts.length > 0 ? 'h-100 overflow-auto' : ''}`}>
-                <Table bordered hover className='mb-0 position-relative w-100' ref={downloadRef}>
+                <Table bordered hover className='mb-0 position-relative w-100'>
                     <thead className='position-sticky'>
                         <tr>
                             <th className='d-none d-lg-table-cell'>#</th>
@@ -77,7 +64,7 @@ function TableComponent() {
                     </div>
                 </div>
             }
-            <PDFDownloadLink variant="success" className='m-2' document={<DownloadComponent />} fileName='workout' >Download Plan</PDFDownloadLink>
+            <PDFDownloadLink variant="success" className='m-2' document={<DownloadComponent workouts={workouts}/>} fileName='workout' >Download Plan</PDFDownloadLink>
         </>
     )
 }

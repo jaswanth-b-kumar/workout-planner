@@ -1,5 +1,8 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { Table } from 'react-bootstrap';
+import { BoxArrowUpRight } from 'react-bootstrap-icons';
+import TableComponent from './TableComponent';
 
 // Create styles
 const styles = StyleSheet.create({
@@ -19,10 +22,7 @@ const DownloadComponent = () => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
-        <Text>Section #1</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
+        
       </View>
     </Page>
   </Document>
