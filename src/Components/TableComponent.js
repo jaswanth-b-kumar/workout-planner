@@ -57,7 +57,7 @@ function TableComponent() {
                             <li><b>Step 3:</b> Customize the number of sets and repetitions.</li>
                             <li><b>Step 4:</b> Click "Add Workout" to add the exercise to your plan.</li>
                             <li><b>Step 5:</b> Repeat steps 1-4 to add more exercises to your plan.</li>
-                            <li><b>Step 6:</b> Download your plan as a PDF.</li>
+                            <li><b>Step 6:</b> Download your plan as a PDF. </li>
                         </ul>
                         <p className='user-guide-footer'><b>Can't find the perfect workout?</b><br />
                             No worries! Use the Customize option to manually enter your desired exercise, sets, and reps. Get creative and build a routine that's uniquely yours!</p>
