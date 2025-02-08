@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 // Create Document Component
 const DownloadComponent = ({workouts}) => (
   <Document>
+    {console.log(workouts)}
     <Page size="A4" style={styles.page}>
       { workouts.map((workout) => {
         return <View style={styles.section}>

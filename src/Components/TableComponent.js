@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { BoxArrowUpRight, PencilSquare, Trash3 } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteWorkout } from '../Redux/workoutSlice';
 import DownloadComponent from './DownloadComponent';
-import ReactPDF, { PDFDownloadLink } from '@react-pdf/renderer';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 
 function TableComponent() {
@@ -64,7 +64,7 @@ function TableComponent() {
                     </div>
                 </div>
             }
-            <PDFDownloadLink variant="success" className='m-2' document={<DownloadComponent workouts={workouts}/>} fileName='workout' >Download Plan</PDFDownloadLink>
+            <PDFDownloadLink variant="success" className='m-2 btn btn-success' document={<DownloadComponent workouts={workouts}/>} fileName='workout' >Download Plan</PDFDownloadLink>
         </>
     )
 }
