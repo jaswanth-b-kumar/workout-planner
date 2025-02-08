@@ -14,21 +14,7 @@
             .custom-btns {
                 gap: 0.5em;
 
-                .custom-btn {
-                    background: #e65f2b;
-                    border-radius: 2em;
-                    font-size: 1em;
-                    color: #fff;
-                    padding: 0.5em 0.75em;
-                    border: none;
-                    margin-bottom: 0.5em;
-                }
-
-                .customize-button {
-                    background: #fff;
-                    color: #e65f2b;
-                    font-weight: 500;
-                }
+                
             }
 
             .workoutIcon {
@@ -139,6 +125,21 @@
                     font-style: italic;
                 }
             }
+        }
+        .custom-btn {
+            background: #e65f2b;
+            border-radius: 2em;
+            font-size: 1em;
+            color: #fff;
+            padding: 0.5em 0.75em;
+            border: none;
+            margin-bottom: 0.5em;
+        }
+
+        .customize-button {
+            background: #fff;
+            color: #e65f2b;
+            font-weight: 500;
         }
     }
 
