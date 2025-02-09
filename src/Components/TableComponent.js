@@ -64,7 +64,7 @@ function TableComponent() {
                     </div>
                 </div>
             }
-            <PDFDownloadLink variant="success" className='m-2 btn custom-btn' document={<DownloadComponent workouts={workouts}/>} fileName='workout' >Download Plan</PDFDownloadLink>
+            <PDFDownloadLink variant="success" className='m-2 btn custom-btn' document={<DownloadComponent workouts={workouts}/>} fileName='workout' >Download PDF</PDFDownloadLink>
         </>
     )
 }
