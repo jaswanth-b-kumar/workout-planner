@@ -15,7 +15,7 @@ function TableComponent() {
     // Handlers for workout deletion
     const handleDeleteWorkout = (id) => {
         if (window.confirm('Are you sure you want to remove this exercise from your plan?')) {
-            dispatch({ type: deleteWorkout, payload: id });
+            dispatch(deleteWorkout({ payload: id }));
         }
     };
     

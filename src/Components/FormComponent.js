@@ -96,23 +96,17 @@ function FormComponent() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Generate unique ID
         const uid = () => Date.now().toString(36) + Math.random().toString(36).substring(2);
         
-        // Find workout link from the selected workout
         const workoutLink = inputs.workouts?.exercises?.find(
             workout => workout.name === formValues.workout
         )?.infoLink || '';
         
-        // Dispatch action to add workout
-        dispatch({ 
-            type: addWorkout, 
-            payload: {
-                ...formValues,
-                id: uid(),
-                workoutLink
-            }
-        });
+        dispatch(addWorkout({
+            ...formValues,
+            id: uid(),
+            workoutLink
+        }));
         
         // Reset form values except for muscle selection
         setFormValues(prev => ({

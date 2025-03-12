@@ -44,23 +44,21 @@ function CustomWorkoutForm({ workout = null, onSave }) {
     
     if (workout) {
       // Editing existing workout - remove old one and add updated version
-      dispatch({ type: deleteWorkout, payload: workout.id });
-      dispatch({ 
-        type: addWorkout, 
+      dispatch(deleteWorkout({payload: workout.id }));
+      dispatch(addWorkout({
         payload: {
           ...formValues,
           id: workout.id // Keep the same ID
         }
-      });
+      }));
     } else {
       // Adding new custom workout
-      dispatch({ 
-        type: addWorkout, 
+      dispatch(addWorkout({ 
         payload: {
           ...formValues,
           id: uid() // Generate new ID
         }
-      });
+      }));
     }
     
     // Reset form and close
