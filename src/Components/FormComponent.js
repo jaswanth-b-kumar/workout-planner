@@ -3,198 +3,265 @@ import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { addWorkout } from '../Redux/workoutSlice';
 import plannerIcon from '../Assets/images/plannerIcon.svg';
- 
-function FormComponent({ onCustomizeClick }) {
-    let [inputs, setInputs] = useState({
+
+function FormComponent() {
+    const [inputs, setInputs] = useState({
         muscles: [],
         workouts: []
     });
-    let [formValues, setFormValues] = useState({
+    
+    const [formValues, setFormValues] = useState({
         muscle: '',
         workout: '',
         workoutSets: '',
         workoutRepetitions: ''
     });
-    let [loading, setLoading] = useState(false);
-    let [error, setError] = useState(null);
+    
+    const [loading, setLoading] = useState({
+        muscles: true,
+        workouts: false
+    });
+    
+    const [error, setError] = useState({
+        muscles: null,
+        workouts: null
+    });
 
     const dispatch = useDispatch();
 
+    // Fetch muscle groups on component mount
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            setError(null);
+        const fetchMuscles = async () => {
             try {
+                setLoading(prev => ({ ...prev, muscles: true }));
                 const response = await fetch('https://api.algobook.info/v1/gym/categories');
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch muscle groups: ${response.status}`);
+                }
+                
                 const result = await response.json();
-                setInputs({ ...inputs, muscles: result ?? [] });
-            } catch (error) {
-                console.error(error);
-                setError('Failed to load muscle groups. Please try again.');
+                setInputs(prev => ({ ...prev, muscles: result || [] }));
+                setError(prev => ({ ...prev, muscles: null }));
+            } catch (err) {
+                console.error('Error fetching muscle groups:', err);
+                setError(prev => ({ ...prev, muscles: err.message }));
             } finally {
-                setLoading(false);
+                setLoading(prev => ({ ...prev, muscles: false }));
             }
-        }
+        };
 
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        fetchMuscles();
     }, []);
 
+    // Fetch workouts when muscle is selected
     useEffect(() => {
         const fetchWorkouts = async () => {
-            if (!formValues.muscle) return;
-            
-            setLoading(true);
-            setError(null);
-            try {
-                const response = await fetch(`https://api.algobook.info/v1/gym/categories/${formValues.muscle}`);
-                const result = await response.json();
-                setInputs((prev) => ({ ...prev, workouts: result ?? [] }));
-            } catch (error) {
-                console.error(error);
-                setError('Failed to load workouts. Please try again.');
-            } finally {
-                setLoading(false);
+            if (!formValues.muscle) {
+                setInputs(prev => ({ ...prev, workouts: [] }));
+                return;
             }
-        }
+            
+            try {
+                setLoading(prev => ({ ...prev, workouts: true }));
+                const response = await fetch(`https://api.algobook.info/v1/gym/categories/${formValues.muscle}`);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch workouts: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                setInputs(prev => ({ ...prev, workouts: result || [] }));
+                setError(prev => ({ ...prev, workouts: null }));
+            } catch (err) {
+                console.error('Error fetching workouts:', err);
+                setError(prev => ({ ...prev, workouts: err.message }));
+            } finally {
+                setLoading(prev => ({ ...prev, workouts: false }));
+            }
+        };
         
-        if(formValues.muscle) {
+        if (formValues.muscle) {
             fetchWorkouts();
         } else {
-            setInputs((prev) => ({ ...prev, workouts: [] }));
+            setInputs(prev => ({ ...prev, workouts: [] }));
         }
     }, [formValues.muscle]);
 
     const handleFormChange = (event) => {
-        setFormValues((prev) => ({ ...prev, [event.target.id]: event.target.value}));
-    }
-    
+        const { id, value } = event.target;
+        setFormValues(prev => ({ ...prev, [id]: value }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        const uid = function(){
-            return Date.now().toString(36) + Math.random().toString(3);
-        }
+        // Generate unique ID
+        const uid = () => Date.now().toString(36) + Math.random().toString(36).substring(2);
         
-        const workoutLink = inputs.workouts?.exercises?.find((workout) => 
-            workout.name === formValues.workout
+        // Find workout link from the selected workout
+        const workoutLink = inputs.workouts?.exercises?.find(
+            workout => workout.name === formValues.workout
         )?.infoLink || '';
         
+        // Dispatch action to add workout
         dispatch({ 
             type: addWorkout, 
             payload: {
-                ...formValues, 
-                id: uid(), 
-                workoutLink: workoutLink
+                ...formValues,
+                id: uid(),
+                workoutLink
             }
         });
         
-        // Reset form after submission
-        setFormValues({
-            muscle: '',
+        // Reset form values except for muscle selection
+        setFormValues(prev => ({
+            ...prev,
             workout: '',
             workoutSets: '',
             workoutRepetitions: ''
-        });
-    }
-    
+        }));
+    };
+
     return (
-        <div>
-            <img src={plannerIcon} className='workoutIcon d-none d-sm-block' alt='workout-planner logo'/>
+        <div className="form-container">
+            <img 
+                src={plannerIcon} 
+                className="workoutIcon" 
+                alt="Workout Planner" 
+            />
             
-            {error && <div className="alert alert-danger">{error}</div>}
+            <h4 className="text-center mb-4">Build Your Workout</h4>
             
             <Form onSubmit={handleSubmit}>
                 <FloatingLabel
                     controlId="muscle"
-                    label="Select your target muscle"
+                    label="Target Muscle"
                     className="mb-3"
                 >
                     <Form.Select 
-                        required 
-                        aria-label="muscleSelector" 
-                        value={formValues.muscle} 
+                        required
+                        value={formValues.muscle}
                         onChange={handleFormChange}
-                        disabled={loading}
+                        disabled={loading.muscles}
                     >
-                        <option value=''>Select Muscle</option>
-                        {inputs.muscles && inputs.muscles.map((muscle, index) => {
-                            const sentenceCaseMuscle = muscle.charAt(0).toUpperCase() + muscle.slice(1);
-                            return <option key={index} value={muscle}>{sentenceCaseMuscle}</option>
+                        <option value="">
+                            {loading.muscles ? 'Loading muscles...' : 'Select Muscle'}
+                        </option>
+                        
+                        {inputs.muscles.map((muscle, index) => {
+                            // Format muscle name to sentence case
+                            const formattedMuscle = muscle.charAt(0).toUpperCase() + muscle.slice(1);
+                            
+                            return (
+                                <option key={index} value={muscle}>
+                                    {formattedMuscle}
+                                </option>
+                            );
                         })}
                     </Form.Select>
+                    
+                    {error.muscles && (
+                        <div className="text-danger mt-1 small">
+                            {error.muscles}
+                        </div>
+                    )}
                 </FloatingLabel>
                 
                 <FloatingLabel
                     controlId="workout"
-                    label="Select your workout"
+                    label="Exercise"
                     className="mb-3"
                 >
                     <Form.Select 
-                        required 
-                        aria-label="workoutSelector" 
-                        value={formValues.workout} 
+                        required
+                        value={formValues.workout}
                         onChange={handleFormChange}
-                        disabled={loading || !formValues.muscle}
+                        disabled={!formValues.muscle || loading.workouts}
                     >
-                        <option value=''>{formValues.muscle ? 'Select workout' : 'Please select a target muscle'}</option>
-                        {inputs.workouts?.exercises?.length > 0 && inputs.workouts.exercises.map((workout, index) => {
-                            return <option key={index} value={workout.name}>{workout.name}</option>
-                        })}
+                        <option value="">
+                            {!formValues.muscle
+                                ? 'Select a muscle first'
+                                : loading.workouts
+                                    ? 'Loading exercises...'
+                                    : 'Select Exercise'}
+                        </option>
+                        
+                        {inputs.workouts?.exercises?.map((workout, index) => (
+                            <option key={index} value={workout.name}>
+                                {workout.name}
+                            </option>
+                        ))}
                     </Form.Select>
+                    
+                    {error.workouts && (
+                        <div className="text-danger mt-1 small">
+                            {error.workouts}
+                        </div>
+                    )}
                 </FloatingLabel>
                 
-                <Form.Floating className="mb-3">
-                    <Form.Control
-                        required
-                        id="workoutSets"
-                        type="number"
-                        placeholder="Enter number of sets"
-                        value={formValues.workoutSets}
-                        onChange={handleFormChange}
-                        min="1"
-                        max="20"
-                    />
-                    <label htmlFor="workoutSets">Total Sets</label>
-                </Form.Floating>
+                <div className="row">
+                    <div className="col-6">
+                        <Form.Floating className="mb-3">
+                            <Form.Control
+                                required
+                                id="workoutSets"
+                                type="number"
+                                min="1"
+                                max="20"
+                                placeholder="Sets"
+                                value={formValues.workoutSets}
+                                onChange={handleFormChange}
+                            />
+                            <label htmlFor="workoutSets">Sets</label>
+                        </Form.Floating>
+                    </div>
+                    
+                    <div className="col-6">
+                        <Form.Floating className="mb-3">
+                            <Form.Control
+                                required
+                                id="workoutRepetitions"
+                                type="number"
+                                min="1"
+                                max="100"
+                                placeholder="Reps"
+                                value={formValues.workoutRepetitions}
+                                onChange={handleFormChange}
+                            />
+                            <label htmlFor="workoutRepetitions">Reps</label>
+                        </Form.Floating>
+                    </div>
+                </div>
                 
-                <Form.Floating className="mb-3">
-                    <Form.Control
-                        required
-                        id="workoutRepetitions"
-                        type="number"
-                        placeholder="Enter number of Repetitions"
-                        value={formValues.workoutRepetitions}
-                        onChange={handleFormChange}
-                        min="1"
-                        max="100"
-                    />
-                    <label htmlFor="workoutRepetitions">Total Repetitions</label>
-                </Form.Floating>
-                
-                <div className='d-lg-flex justify-content-between custom-btns gap-2'>
+                <div className="custom-btns">
                     <Button 
                         variant="primary" 
                         type="submit" 
-                        className="custom-btn w-100 mb-2 mb-lg-0"
-                        disabled={loading}
+                        className="custom-btn"
+                        disabled={!formValues.muscle || !formValues.workout}
                     >
-                        {loading ? 'Loading...' : 'Add Workout'}
+                        Add to Plan
                     </Button>
                     
                     <Button 
-                        className="custom-btn customize-button w-100"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            onCustomizeClick();
-                        }}
+                        variant="outline-primary" 
+                        type="button"
+                        className="custom-btn"
+                        onClick={() => setFormValues({
+                            muscle: '',
+                            workout: '',
+                            workoutSets: '',
+                            workoutRepetitions: ''
+                        })}
                     >
-                        Customize
+                        Reset
                     </Button>
                 </div>
             </Form>
         </div>
-    )
+    );
 }
 
 export default FormComponent;

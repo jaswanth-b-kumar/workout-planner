@@ -1,8 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
-import workoutReduce from './workoutSlice';
+import workoutReducer from './workoutSlice';
 
-export default configureStore({
+// Create Redux store
+const store = configureStore({
     reducer: {
-        workouts : workoutReduce,
+        workouts: workoutReducer,
+    },
+    // Add middleware for localStorage persistence (optional)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    })
+});
+
+// Optional: Add localStorage persistence
+store.subscribe(() => {
+    try {
+        const { workouts } = store.getState();
+        localStorage.setItem('workoutPlannerState', JSON.stringify({ workouts }));
+    } catch (error) {
+        console.error('Could not save state to localStorage:', error);
     }
 });
+
+export default store;

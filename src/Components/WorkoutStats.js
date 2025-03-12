@@ -1,83 +1,105 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Card } from 'react-bootstrap';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Row, Col } from 'react-bootstrap';
+import { BarChartFill, ClockFill, Lightning, Trophy } from 'react-bootstrap-icons';
 
 function WorkoutStats() {
-  const workouts = useSelector((state) => state.workouts.workouts);
-  
-  // Count exercises by muscle group
-  const muscleGroups = {};
-  workouts.forEach(workout => {
-    const muscle = workout.muscle.charAt(0).toUpperCase() + workout.muscle.slice(1);
-    muscleGroups[muscle] = (muscleGroups[muscle] || 0) + 1;
-  });
-  
-  // Convert to chart data
-  const chartData = Object.keys(muscleGroups).map(muscle => ({
-    name: muscle,
-    count: muscleGroups[muscle]
-  }));
-  
-  // Calculate workout stats
-  const totalExercises = workouts.length;
-  const totalSets = workouts.reduce((sum, workout) => sum + parseInt(workout.workoutSets), 0);
-  const totalReps = workouts.reduce((sum, workout) => {
-    return sum + (parseInt(workout.workoutSets) * parseInt(workout.workoutRepetitions));
-  }, 0);
-  
-  // Estimate workout duration (rough estimate: 2 mins per set including rest)
-  const estimatedDuration = totalSets * 2;
-  
-  if (workouts.length === 0) {
+    const workouts = useSelector((state) => state.workouts.workouts);
+    
+    // If no workouts, show a simple message
+    if (workouts.length === 0) {
+        return (
+            <div className="stats-container text-center p-3">
+                <h5 className="mb-3">Workout Statistics</h5>
+                <p className="text-muted">
+                    Add exercises to your plan to see statistics.
+                </p>
+            </div>
+        );
+    }
+    
+    // Calculate total exercises
+    const totalExercises = workouts.length;
+    
+    // Calculate total sets
+    const totalSets = workouts.reduce((total, workout) => {
+        return total + parseInt(workout.workoutSets || 0);
+    }, 0);
+    
+    // Calculate total reps
+    const totalReps = workouts.reduce((total, workout) => {
+        return total + (parseInt(workout.workoutSets || 0) * parseInt(workout.workoutRepetitions || 0));
+    }, 0);
+    
+    // Calculate estimated workout duration (rough estimate: 2 mins per set)
+    const estimatedDuration = totalSets * 2;
+    
+    // Count exercises by muscle group
+    const muscleGroups = {};
+    workouts.forEach(workout => {
+        const muscle = workout.muscle.charAt(0).toUpperCase() + workout.muscle.slice(1);
+        muscleGroups[muscle] = (muscleGroups[muscle] || 0) + 1;
+    });
+    
+    // Find most targeted muscle
+    let mostTargetedMuscle = '';
+    let highestCount = 0;
+    
+    Object.entries(muscleGroups).forEach(([muscle, count]) => {
+        if (count > highestCount) {
+            highestCount = count;
+            mostTargetedMuscle = muscle;
+        }
+    });
+    
     return (
-      <Card className="stats-container mt-3 text-center">
-        <Card.Body>
-          <Card.Title>Workout Summary</Card.Title>
-          <p className="text-muted">Add exercises to see your workout statistics</p>
-        </Card.Body>
-      </Card>
-    );
-  }
-
-  return (
-    <Card className="stats-container mt-3">
-      <Card.Body>
-        <Card.Title>Workout Summary</Card.Title>
-        <div className="d-flex justify-content-between flex-wrap">
-          <div className="stat-box">
-            <h5>{totalExercises}</h5>
-            <p className="text-muted">Exercises</p>
-          </div>
-          <div className="stat-box">
-            <h5>{totalSets}</h5>
-            <p className="text-muted">Total Sets</p>
-          </div>
-          <div className="stat-box">
-            <h5>{totalReps}</h5>
-            <p className="text-muted">Total Reps</p>
-          </div>
-          <div className="stat-box">
-            <h5>~{estimatedDuration} min</h5>
-            <p className="text-muted">Est. Duration</p>
-          </div>
+        <div className="stats-container">
+            <h5 className="mb-3">Workout Statistics</h5>
+            
+            <Row className="g-3">
+                <Col xs={6} md={6}>
+                    <div className="stat-box">
+                        <Lightning size={20} className="mb-2 text-primary" />
+                        <h3>{totalExercises}</h3>
+                        <p>Exercises</p>
+                    </div>
+                </Col>
+                
+                <Col xs={6} md={6}>
+                    <div className="stat-box">
+                        <BarChartFill size={20} className="mb-2 text-primary" />
+                        <h3>{totalSets}</h3>
+                        <p>Total Sets</p>
+                    </div>
+                </Col>
+                
+                <Col xs={6} md={6}>
+                    <div className="stat-box">
+                        <Trophy size={20} className="mb-2 text-primary" />
+                        <h3>{totalReps}</h3>
+                        <p>Total Reps</p>
+                    </div>
+                </Col>
+                
+                <Col xs={6} md={6}>
+                    <div className="stat-box">
+                        <ClockFill size={20} className="mb-2 text-primary" />
+                        <h3>~{estimatedDuration} min</h3>
+                        <p>Est. Duration</p>
+                    </div>
+                </Col>
+            </Row>
+            
+            {mostTargetedMuscle && (
+                <div className="mt-3 p-3 bg-light rounded">
+                    <h6 className="mb-2">Muscle Focus</h6>
+                    <p className="mb-0 small">
+                        Your plan focuses most on <strong>{mostTargetedMuscle}</strong> with {highestCount} exercises.
+                    </p>
+                </div>
+            )}
         </div>
-        
-        {chartData.length > 0 && (
-          <div className="mt-3" style={{ height: '150px' }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData}>
-                <XAxis dataKey="name" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Bar dataKey="count" fill="#8884d8" name="Exercises" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        )}
-      </Card.Body>
-    </Card>
-  );
+    );
 }
 
 export default WorkoutStats;
