@@ -39,15 +39,13 @@ function EditWorkoutModal({ show, workout, onHide }) {
         e.preventDefault();
         
         // Remove the old workout
-        dispatch(deleteWorkout({ payload: workout.id }));
+        dispatch(deleteWorkout(workout.id ));
         
         // Add the updated workout with the same ID
-        dispatch(addWorkout({ 
-            payload: {
+        dispatch(addWorkout({
                 ...formValues,
                 id: workout.id  // Keep the same ID
-            }
-        }));
+            }));
         
         // Close the modal
         onHide();
