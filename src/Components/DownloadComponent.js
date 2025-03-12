@@ -201,7 +201,7 @@ const DownloadComponent = ({ workouts }) => {
         
         {/* Footer */}
         <Text style={styles.footer}>
-          Generated with Workout Planner - Your personal fitness assistant
+          Generated with Jaswanth's Workout Planner - Your personal fitness assistant
         </Text>
       </Page>
     </Document>

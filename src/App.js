@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.scss';
 import FormComponent from './Components/FormComponent';
 import TableComponent from './Components/TableComponent';
 import EmptyState from './Components/EmptyState';
@@ -17,7 +17,6 @@ function App() {
     <div className="app">
       <Container fluid className="p-3 p-md-4 h-100">
         <Row className="h-100">
-          {/* Form Column (30%) */}
           <Col sm={12} md={4} className="form-col">
             <div className="form-wrapper mb-4">
               <FormComponent />
@@ -42,7 +41,6 @@ function App() {
             </div>
           </Col>
           
-          {/* Table Column (70%) */}
           <Col sm={12} md={8} className="table-col">
             {workouts.length > 0 ? (
               <TableComponent />
